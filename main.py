@@ -11,8 +11,10 @@ from functools import partial
 
 
 # functions
-def change_show_times():
-    print(current_movie)
+def change_show_times(movie_data):
+    # print(current_movie)
+    print(movie_data)
+
 
 
 def add_to_cart(item):
@@ -52,8 +54,15 @@ while True:
     line_read = line_read.strip()
     movie_showings = list(line_read.split(','))
     # Add a radio button for each movie listing. storing the show times in its value
-    movies = tk.Radiobutton(showings, text=movie_name, variable=current_movie, value=movie_showings, indicatoron=False,
-                            command=change_show_times)
+    movies = tk.Radiobutton(
+        showings,
+        text=movie_name,
+        variable=current_movie,
+        value=movie_showings,
+        indicatoron=False,
+        #command=change_show_times)
+        command=partial(change_show_times, movie_showings),
+    )
     movies.pack()
 
 # create a concessions window
@@ -75,5 +84,13 @@ while True:
     )
     conces_button.pack()
 
+
+# create a cart window
+cart = tk.Tk()
+cart.title('Ticket Submit > Cart')
+cart.geometry('200x600')
+
+
 showings.mainloop()
 concessions.mainloop()
+cart.mainloo()
