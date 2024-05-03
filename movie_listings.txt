@@ -2,4 +2,4 @@ James Bond vs the Pool Noodle
 monday,1200,1530,1545,2010,/,tuesday,1230,1625,2300
 -
 The Basement with the Endless Stairs
-sunday,1200,1530,1545,2010,/,thursday,1230,1625,2300
+sunday,1230,1530,1545,2010,/,thursday,1230,1625,2300

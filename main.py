@@ -11,10 +11,39 @@ from functools import partial
 
 
 # functions
-def change_show_times(movie_data):
+def show_times_add(movie_data):
+    global showtimes_list
+    current_showtime = tk.IntVar()
+    day_append = ""
+    #clear current show times.
+    show_times_remove()
     # print(current_movie)
     print(movie_data)
+    for i in movie_data:
+        showtimes_list.append(tk.Radiobutton(
+            movie_times_frame,
+            text=i,
+            variable=current_showtime,
+            value=i,
+            #indicatoron=False,
+            #command=partial(show_times_add, movie_showings),
+        ))
+    # pack the wedgets
+    for i in showtimes_list:
+        i.pack()
 
+
+
+def show_times_remove():
+    global showtimes_list
+    for i in showtimes_list:
+        i.distroy()
+    showtimes_list = []
+
+
+def convert_time(time):
+    if time > 12:
+        return str(time)
 
 
 def add_to_cart(item):
@@ -30,13 +59,17 @@ showings = tk.Tk()
 showings.title('Ticket Submit > showings')
 showings.geometry('500x500')
 # create the frames to separate movie names from movie times
-
+movie_names_frame = ttk.LabelFrame(showings)
+movie_names_frame.pack()
+movie_times_frame = ttk.LabelFrame(showings)
+movie_times_frame.pack()
 
 # declare variables
 line_read = ""
 movie_showings = []
 current_movie = tk.IntVar()  # radio buttons that show movie names
-current_showtimes = tk.IntVar()  # radio buttons that show movie times
+#current_showtime = tk.IntVar()  # radio buttons that show movie times
+showtimes_list = []
 
 # populate the movie listings
 while True:
@@ -55,13 +88,12 @@ while True:
     movie_showings = list(line_read.split(','))
     # Add a radio button for each movie listing. storing the show times in its value
     movies = tk.Radiobutton(
-        showings,
+        movie_names_frame,
         text=movie_name,
         variable=current_movie,
         value=movie_showings,
         indicatoron=False,
-        #command=change_show_times)
-        command=partial(change_show_times, movie_showings),
+        command=partial(show_times_add, movie_showings),
     )
     movies.pack()
 
@@ -80,17 +112,15 @@ while True:
     conces_button = tk.Button(
         concessions,
         text=line_read,
-        command=partial(add_to_cart,line_read)
+        command=partial(add_to_cart, line_read)
     )
     conces_button.pack()
-
 
 # create a cart window
 cart = tk.Tk()
 cart.title('Ticket Submit > Cart')
 cart.geometry('200x600')
 
-
 showings.mainloop()
 concessions.mainloop()
-cart.mainloo()
+cart.mainloop()
