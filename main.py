@@ -11,39 +11,22 @@ from functools import partial
 
 
 # functions
-def show_times_add(movie_data):
-    global showtimes_list
-    current_showtime = tk.IntVar()
+def show_times_change(movie_data):
+    current_day = ''
+    current_time = ''
+    # clear current listings
+    showtimes_listbox.delete(0, tk.END)
     day_append = ""
-    #clear current show times.
-    show_times_remove()
-    # print(current_movie)
-    print(movie_data)
     for i in movie_data:
-        showtimes_list.append(tk.Radiobutton(
-            movie_times_frame,
-            text=i,
-            variable=current_showtime,
-            value=i,
-            #indicatoron=False,
-            #command=partial(show_times_add, movie_showings),
-        ))
-    # pack the wedgets
-    for i in showtimes_list:
-        i.pack()
+        if i[0].isalpha():
+            current_day = i
+            continue  # because the day has changed we need to skip to the next line to get the proper time
+        elif i[0].isdigit():
+            current_time = i
+        else:
+            continue
+        showtimes_listbox.insert(tk.END, current_day + " - " + current_time)
 
-
-
-def show_times_remove():
-    global showtimes_list
-    for i in showtimes_list:
-        i.distroy()
-    showtimes_list = []
-
-
-def convert_time(time):
-    if time > 12:
-        return str(time)
 
 
 def add_to_cart(item):
@@ -54,23 +37,40 @@ def add_to_cart(item):
 movie_listing = open('movie_listings.txt', "r")
 concessions_listing = open('concessions.txt', 'r')
 
+# declare variables
+line_read = ""
+movie_showings = []
+showtimes_list = []
+
 # create the movie listing window
 showings = tk.Tk()
 showings.title('Ticket Submit > showings')
 showings.geometry('500x500')
 # create the frames to separate movie names from movie times
 movie_names_frame = ttk.LabelFrame(showings)
-movie_names_frame.pack()
+movie_names_frame.pack(expand=True, fill=tk.BOTH,side=tk.LEFT)
+movie_poster_image = tk.PhotoImage(file='./adventure.png')
+movie_poster = tk.Label(
+    movie_names_frame,
+    image=movie_poster_image
+)
+movie_poster.pack(side=tk.BOTTOM)
+
 movie_times_frame = ttk.LabelFrame(showings)
-movie_times_frame.pack()
+movie_times_frame.pack(expand=True, fill=tk.BOTH,side=tk.RIGHT)
 
-# declare variables
-line_read = ""
-movie_showings = []
+
+current_showtime = tk.IntVar()  # radio buttons that show movie times
+# create the showtimes list box
+showtimes_listbox = tk.Listbox(
+    movie_times_frame,
+    listvariable=current_showtime,
+    height=10,
+    selectmode=tk.SINGLE
+)
+showtimes_listbox.pack(expand=True, fill=tk.BOTH)
+
 current_movie = tk.IntVar()  # radio buttons that show movie names
-#current_showtime = tk.IntVar()  # radio buttons that show movie times
-showtimes_list = []
-
 # populate the movie listings
 while True:
     line_read = movie_listing.readline()
@@ -93,7 +93,7 @@ while True:
         variable=current_movie,
         value=movie_showings,
         indicatoron=False,
-        command=partial(show_times_add, movie_showings),
+        command=partial(show_times_change, movie_showings),
     )
     movies.pack()
 
