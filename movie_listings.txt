@@ -1,5 +1,11 @@
-James Bond vs the Pool Noodle
+James Bond Return to Sender
 monday,1200,1530,1545,2010,tuesday,1230,1625,2300
 -
-The Basement with the Endless Stairs
+The Basement with no Bottom
 sunday,1230,1530,1545,2010,thursday,1230,1625,2300
+-
+Hat of Time
+sunday,1230,1530,1545,2010,thursday,1230,1625,2300
+-
+You're in the Matrix Charlie Brown
+monday,1200,1530,1545,2010,tuesday,1230,1625,2300
