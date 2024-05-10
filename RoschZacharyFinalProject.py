@@ -16,7 +16,6 @@ loop_index - used to count loop iterations
 """
 import tkinter as tk
 from tkinter import ttk
-import functions
 from functools import partial
 from tkinter.messagebox import showerror, showwarning, showinfo
 from datetime import date
