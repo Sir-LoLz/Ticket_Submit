@@ -1,0 +1,14 @@
+Buyer_name //  Zachary Rosch 
+sale_code //  59957 
+Bank transaction number // e9e6b58d-0f03-11ef-8ec3-7085c27d012a
+movie name // The Basement with no Bottom X(3) 
+Show time // Friday - 3:45PMP
+ 
+Purchased concessions --> 
+ - Small Soda 
+ - Medium Soda 
+ - Junior Mints 
+ - Fries 
+<-- Purchased concessions 
+ 
+Order total $20.20 

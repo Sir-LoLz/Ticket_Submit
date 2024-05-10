@@ -1,0 +1,17 @@
+Buyer_name //  Zachary Sue 
+sale_code //  86718 
+Bank transaction number // 2419d06c-0f02-11ef-8124-7085c27d012a
+movie name // Mr Clean X(3) 
+Show time // Sunday - 3:30PM
+ 
+Purchased concessions --> 
+ - Medium Pop Corn 
+ - Medium Pop Corn 
+ - Medium Pop Corn 
+ - Large Soda 
+ - Large Soda 
+ - Large Soda 
+ - Junior Mints 
+<-- Purchased concessions 
+ 
+Order total $30.47 

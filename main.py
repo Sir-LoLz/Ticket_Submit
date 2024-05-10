@@ -40,13 +40,12 @@ def show_times_change(showtimes, title):
     CartItem.delete_tickets()
 
     #prime local variables
-    current_day = ''
-    current_time = ''
-    day_append = ""
+    current_day = '' # stores current day
+    current_time = '' # stores current time
 
     # update movie poster
-    global movie_poster_image
-    movie_poster_image = tk.PhotoImage(file=f'./movie_posters/{title}.png')
+    global movie_poster_image  # bring the movie poster variable into scope
+    movie_poster_image = tk.PhotoImage(file=f'./movie_posters/{title}.png')  # update the poster variable
     movie_poster['image'] = movie_poster_image
 
     # clear current showtimes
@@ -74,13 +73,13 @@ def show_times_change(showtimes, title):
 #    store the showtime if done by the user.
 def on_select(event):
     # test to make sure the listbox is in focus. if not exit the function
-    focused_widget = main_window.focus_get()
+    focused_widget = main_window.focus_get() # store the currently in focus widget
 
-    if focused_widget != showtimes_listbox:
+    if focused_widget != showtimes_listbox: # if the in focus widget is not the listbox. exit the funciton.
         return
 
     #if in focus then store the result.
-    global selected_show_time
+    global selected_show_time # bring the selected showtime variable into scope
     selected_show_time = showtimes_listbox.get(showtimes_listbox.curselection())
 
 
@@ -89,8 +88,7 @@ def on_select(event):
 def add_to_cart(item, is_tickets=False):
     # because ticket items are stored in the cart we need to remember
     #   what item it is, so we can track tickets later.
-
-    stripped = item.strip()
+    stripped = item.strip() # clear the data of new lines
 
     # append the cart list with the new item
     cart_item_list.append((CartItem(stripped.split(','), is_tickets)))
@@ -99,7 +97,9 @@ def add_to_cart(item, is_tickets=False):
 # prepare a string to represent the movie being added. then add it to the cart.
 def add_tickets_to_cart():
     # unlike concessions, tickets need a quantity with them. store that as part of the input
-    quantity = float(ticket_quantity.get())
+    quantity = float(ticket_quantity.get()) # store the price of the item.
+
+    # add the item to the cart
     add_to_cart(f'{current_movie.get()} X({ticket_quantity.get()}), {"%.2f" % (quantity * ticket_price)}', True)
 
 
@@ -108,17 +108,15 @@ if the purchase is validated. create sale.
 '''
 def create_sale():
     # get information related to the sale and store it in local variables.
-    buyer_name = checkout_name.get("1.0", "end-1c")
-    sale_number = uuid.uuid1()
+    buyer_name = checkout_name.get("1.0", "end-1c") # store the name of the customer
 
     # sale code is a short number to give to the buyer to redeem their purchase.
     #   a random number is not a good way to do this but I ran out of time :(
     #   so for now it will need to do.
-    sale_code = random.randint(10000, 99999)
-    movie_name = CartItem.find_movie_name()
-    sale_total = cart_price['text']
-    # because the showtime is a global variable bring it in scope
-    global selected_show_time
+    sale_code = random.randint(10000, 99999) # create a sale number to present to a staff member
+    movie_name = CartItem.find_movie_name()  # get the selected movie name
+    sale_total = cart_price['text']  # get the sale total
+    global selected_show_time # bring the showtime variable into scope
 
     # Credit card data is only checked for format.
     #    no information is processed and card is otherwise assumed legit
@@ -145,7 +143,9 @@ def create_sale():
     sale_file.write(f'<-- Purchased concessions \n \n')
     sale_file.write(f'Order total {sale_total} \n')  # write the sale total
 
+    # close the sale file
     sale_file.close()
+
     # display a message that the sale finished and give them their code.
     showinfo(
         title='Information',
@@ -155,13 +155,13 @@ def create_sale():
 # validate purchase
 def _validate_purchase():
     # retrieve relevant data from widgets
-    card_number = checkout_card_num.get("1.0", "end-1c")
-    card_number = card_number.strip()
-    name = checkout_name.get("1.0", "end-1c")
-    cvv = checkout_cv.get("1.0", "end-1c")
-    cvv = cvv.strip()
-    year = checkout_exp_year.get("1.0", "end-1c")
-    year = year.strip()
+    card_number = checkout_card_num.get("1.0", "end-1c") # get the credit card number
+    card_number = card_number.strip() # strip the card number
+    name = checkout_name.get("1.0", "end-1c") # get the name of the customer
+    cvv = checkout_cv.get("1.0", "end-1c") # get the CVV number for the card
+    cvv = cvv.strip() # strip the CVV number
+    year = checkout_exp_year.get("1.0", "end-1c")  # get the expiration year of the card
+    year = year.strip() # strip the expiration year
 
     # check a ticket item is in the cart.
     if not CartItem.test_for_tickets():
@@ -186,15 +186,15 @@ def _validate_purchase():
         return
 
     # check there are no letters in the card number
-    for i in card_number:
-        if not (i.isdigit() or i == "-"):
+    for i in card_number:  # loop through each character in the input
+        if not (i.isdigit() or i == "-"):  # if it is not a number or dash. the input is invalid
             showerror(
                 title='Error',
                 message=f'non numbers in card number. {i}')
             return
 
     # Laws prohibit numbers and symbols in names. check for those
-    for i in name:
+    for i in name: # loop through the name characters
         if not (i.isalpha() or i == " "):
             showerror(
                 title='Error',
@@ -224,15 +224,18 @@ def _validate_purchase():
         return
 
     # if a card should have expired fail the checkout.
-    today = date.today()
-    month_str = checkout_exp_month.get()
-    year = int(year)
+    today = date.today()  # store today's date
+    month_str = checkout_exp_month.get()  # get the expiration month string
+    year = int(year) # get the expiration year
+
     # store month names with their number. allowing us to convert
     #   from a string to a int representation
     month_dict = {"Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6, "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10,
                   "Nov": 11, "Dec": 12}
-    month_num = month_dict.get(month_str)
-    card_date = date(year, month_num, 5)
+    month_num = month_dict.get(month_str)  # use the month str to get the month int
+    card_date = date(year, month_num, 5)  # create a date with the supplied information from the card
+
+    # if the cards date is older than today. the card has expired.
     if today > card_date:
         showerror(
             title='Error',
@@ -310,11 +313,12 @@ class CartItem:
     # update the carts total value
     @staticmethod
     def update_total(amount):
-        total = amount
+        total = amount # prime the total with the item being added or removed
 
-        for i in cart_item_list:
+        for i in cart_item_list: # add each items price to the total
             total += i.price
 
+        #update the total
         cart_price['text'] = "$" + "%.2f" % total
 
     # find and remove ticket items
@@ -357,8 +361,9 @@ def on_main_close():
 
 main_window.protocol("WM_DELETE_WINDOW", on_main_close)
 
+
 # create a banner image
-banner_image = tk.PhotoImage(file='./Ticket_submit_banner.png')
+banner_image = tk.PhotoImage(file='./Ticket_submit_banner.png')  # image variable for the app banner
 banner = tk.Label(main_window, image=banner_image)
 banner.pack(side=tk.TOP)
 
@@ -387,7 +392,7 @@ movie_times_frame = ttk.LabelFrame(movies_frame)
 movie_times_frame.pack(expand=True, fill=tk.BOTH, side=tk.RIGHT)
 
 # create a label to display a poster for the selected movie
-movie_poster_image = tk.PhotoImage(file='./movie_posters/theater_logo.png')
+movie_poster_image = tk.PhotoImage(file='./movie_posters/theater_logo.png')  # stores the image for the current movie selected
 movie_poster = tk.Label(
     movie_times_frame,
     image=movie_poster_image
@@ -449,12 +454,12 @@ while True:
     if line_read == "-":
         continue
 
-    # Add the movie the showings
+    ''' Add the movie showings'''
     movie_name = line_read  # prepare the movie name for storage
 
     line_read = movie_listing.readline()  # prepare the movie showings for storage
     line_read = line_read.strip()
-    movie_showings = list(line_read.split(','))
+    movie_showings = list(line_read.split(','))  # separate the showtimes into a list.
 
     # Add a radio button for each movie listing. storing the show times in its value
     movies = tk.Radiobutton(
@@ -554,7 +559,7 @@ checkout_text_month = tk.Label(checkout_frame, text='Select exp month and year')
 checkout_text_month.grid(column=0, row=4, ipadx=3, ipady=3, columnspan=2)
 
 # create a drop-down box for each month
-checkout_exp_month_var = tk.StringVar()
+checkout_exp_month_var = tk.StringVar()  # holds the expiration month
 checkout_exp_month = ttk.Combobox(checkout_frame, textvariable=checkout_exp_month_var)
 checkout_exp_month['state'] = 'readonly'
 checkout_exp_month['value'] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -564,7 +569,7 @@ checkout_exp_month.current(0)
 # create an input for the expiring year
 checkout_exp_year = tk.Text(checkout_frame, height=1)
 checkout_exp_year.grid(column=1, row=5, ipadx=3, ipady=3)
-checkout_exp_year.insert(1.0, '2025')
+checkout_exp_year.insert(1.0, '****')
 
 # create an text label and input for the CVV number
 checkout_text_month = tk.Label(checkout_frame, text='CVV')
@@ -572,7 +577,7 @@ checkout_text_month.grid(column=2, row=4, ipadx=3, ipady=3, )
 
 checkout_cv = tk.Text(checkout_frame, height=1)
 checkout_cv.grid(column=2, row=5, ipadx=3, ipady=3)
-checkout_cv.insert(1.0, '536')
+checkout_cv.insert(1.0, '***')
 
 # create a button to submit the order
 checkout_submit_btn = tk.Button(checkout_frame, text='submit order', command=_validate_purchase)
