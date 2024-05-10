@@ -1,5 +1,5 @@
 James Bond Return to Sender
-monday,1200,1530,1545,2010,tuesday,1230,1625,2300
+monday,12:00 PM,3:30PM,1545,2010,tuesday,1230,1625,2300
 -
 The Basement with no Bottom
 sunday,1230,1530,1545,2010,thursday,1230,1625,2300
@@ -8,4 +8,19 @@ Hat of Time
 sunday,1230,1530,1545,2010,thursday,1230,1625,2300
 -
 You're in the Matrix Charlie Brown
+monday,1200,1530,1545,2010,tuesday,1230,1625,2300
+-
+Bears on a Submarine
+monday,1200,1530,1545,2010,tuesday,1230,1625,2300
+-
+Gonzo in 60 Seconds
+sunday,1230,1530,1545,2010,thursday,1230,1625,2300
+-
+Hungry Hungry Hippos
+sunday,1230,1530,1545,2010,thursday,1230,1625,2300
+-
+Mr Clean
+monday,1200,1530,1545,2010,tuesday,1230,1625,2300
+-
+Popeye
 monday,1200,1530,1545,2010,tuesday,1230,1625,2300

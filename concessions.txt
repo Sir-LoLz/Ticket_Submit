@@ -1,3 +1,11 @@
 Small Pop Corn, 1.99
 Medium Pop Corn, 2.25
 Large Pop Corn, 3.00
+Small Soda, 0.99
+Medium Soda, 2.99
+Large Soda, 3.25
+Milk Duds, 2.00
+Skittles, 2.00
+Junior Mints, 2.00
+Fries, 2.25
+nacho, 3.00
