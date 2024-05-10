@@ -1,0 +1,10 @@
+Buyer_name //  Zachary Rosch 
+sale_code //  14637 
+Bank transaction number // 29edbf2b-0f0a-11ef-a22c-7085c27d012a
+movie name // The Basement with no Bottom X(1) 
+Show time // Friday - 3:30PM
+ 
+Purchased concessions --> 
+<-- Purchased concessions 
+ 
+Order total $3.99 

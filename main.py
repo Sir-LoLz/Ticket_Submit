@@ -2,7 +2,7 @@
 Ticket Submit
 Zachary Rosch
 28APR24 - 10MAY24
-Version 1.0
+Version 1.1
 
 Program allows users to order movie tickets and concession items. Once selected
     items are in the cart they can check out with a credit card.
