@@ -1,0 +1,15 @@
+Buyer_name //  Boby Wills 
+sale_code //  36948 
+Bank transaction number // e7e6c54f-0e99-11ef-aac1-7085c27d012a
+movie name // Hat of Time X(2) 
+Show time // sunday - 1230
+ 
+Purchased concessions --> 
+ - Large Pop Corn 
+ - Large Pop Corn 
+ - Milk Duds 
+ - Large Soda 
+ - Large Soda 
+<-- Purchased concessions 
+ 
+Order total $22.48 
